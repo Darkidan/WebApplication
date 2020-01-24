@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApplication.Models.Comment>
+
+@{
+    ViewBag.Title = "Comments Index";
+}
+@if ((string)Session["UserGroup"] == "Admin") {
+<h2>Comments Index</h2>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <div class="col-md-1">
+            <b>@Html.DisplayNameFor(model => model.CommentTopic.TopicTitle)</b>
+        </div>
+            <div class="col-md-1">
+                <b>@Html.DisplayNameFor(model => model.CommentUser.Username)</b></div>
+
+        <b>@Html.DisplayNameFor(model => model.CommentContent)</b>
+</li>
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item">
+                <div class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.CommentTopic.TopicTitle)</div>
+                <div class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.CommentUser.Username)
+                </div>
+                <div class="col-md-3">
+                    @Html.DisplayFor(modelItem => item.CommentContent)
+                </div>
+
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CommentID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.CommentID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CommentID })
+
+</li>
+        }
+
+</ul>
+}
+else
+{
+    <text>You are not an Admin, You can't look Here!</text>
+}

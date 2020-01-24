@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApplication.Models.Category>
+
+@{
+    ViewBag.Title = "Categories Index";
+}
+@if ((string)Session["UserGroup"] == "Admin")
+{
+<h2>Categories Index</h2>
+
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <div class="col-md-4">
+            <b>@Html.DisplayNameFor(model => model.CatagoryName)</b>
+        </div>
+        
+            <b>@Html.DisplayNameFor(model => model.NumOfForums)</b>
+        
+</li>
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item">
+                <div class="col-md-4">
+                    @Html.DisplayFor(modelItem => item.CatagoryName)
+                    </div>
+                <div class="col-md-4">
+                    @Html.DisplayFor(modelItem => item.NumOfForums)
+                </div>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID })
+</li>
+        }
+
+</ul>
+
+<p>
+    @Html.ActionLink("Create New Category", "Create", null, new { @class = "btn btn-primary" })
+</p>
+}
+else
+{
+    <text>You are not an Admin, You can't look Here!</text>
+}

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebApplication.Models.Topic>
+
+@{
+    ViewBag.Title = "TopicList in Forum";
+}
+
+<h3>@Session["sessionString"]</h3>
+
+
+@using (Html.BeginForm("ViewForum", "Topics", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    @Html.RadioButton("searchBy", "TopicTitle")
+                </span>
+                <span class="input-group-addon">Topic Title</span>
+                @Html.TextBox("searchValue", null, new { @class = "form-control" })
+                &nbsp;
+                <button class="btn btn-secondary" type="submit" value="Search">Search</button>
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand">
+            @ViewBag.ForumName
+            <span class="badge">@ViewBag.CountForum <text>Topics</text></span>
+        </a>
+
+    </div>
+</nav>
+
+<ul class="list-group">
+    @foreach (var item in Model)
+            {
+        <li class="list-group-item">
+            @Html.ActionLink(item.TopicTitle, "ViewTopic", "Comments", new { id = item.TopicID }, null)
+            <span class="badge"> Author: @Html.DisplayFor(modelItem => item.Author.Username)</span>
+        </li>
+    }
+</ul>
+@if ((string)Session["UserGroup"] == "Admin" || (string)Session["UserGroup"] == "User")
+{
+    <div class="col-md-8">@Html.ActionLink("Create Topic", "Create", "Topics", new { id = @ViewBag.ForumID }, new { @class = "btn btn-primary" })</div>
+}
+
+<div class="col-md-4">@Html.ActionLink("Back to Forums", "Index", "Home", null, new { @class = "btn btn-default" })</div>
+<br /><br /><br />
+<div class="container">
+    <div class="jumbotron">
+        <h3>Animal Sport</h3>
+        <section>
+            <video controls="controls" width="480" height="280">
+                <source src="~/Content/video/animal sport.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <section>
+    <p>
+        Canvas<br />
+        <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>
+        <script>
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            ctx.font = "30px Arial";
+            ctx.fillText("Hello Igor", 10, 50);</script>
+    </p></section>
+</div>
+</div>
+        

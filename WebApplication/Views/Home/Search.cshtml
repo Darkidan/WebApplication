@@ -1,0 +1,21 @@
+﻿@model IEnumerable<WebApplication.Models.Comment>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">
+                @Html.DisplayFor(modelItem => item.CommentContent)
+        </li>
+    }
+
+    </ul>
+<div>
+    @Html.ActionLink("Back to Main Page", "Index", "Home", null, new { @class = "btn btn-primary" })
+</div>

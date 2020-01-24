@@ -1,0 +1,42 @@
+﻿@model WebApplication.Models.Comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CommentTopic.TopicTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommentTopic.TopicTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CommentUser.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommentUser.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CommentContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommentContent)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CommentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

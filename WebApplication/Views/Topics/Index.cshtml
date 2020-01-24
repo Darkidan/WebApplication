@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebApplication.Models.Topic>
+
+@{
+    ViewBag.Title = "Topics Index";
+}
+@if ((string)Session["UserGroup"] == "Admin")
+{
+<h2>Topics Index</h2>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <div class="col-md-1">
+            <b>@Html.DisplayNameFor(model => model.Author.Username)</b></div>
+            <div class="col-md-1">
+                <b>@Html.DisplayNameFor(model => model.Forum.ForumName)</b></div>
+                <div class="col-md-2">
+                    <b>@Html.DisplayNameFor(model => model.TopicTitle)</b></div>
+        <b> @Html.DisplayNameFor(model => model.Content)</b>
+</li>
+
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item">
+                    <div class="col-md-1">
+                        @Html.DisplayFor(modelItem => item.Author.Username)</div>
+                        <div class="col-md-1">
+                            @Html.DisplayFor(modelItem => item.Forum.ForumName)</div>
+                            <div class="col-md-2">
+                                @Html.DisplayFor(modelItem => item.TopicTitle)</div>
+                                <div class="col-md-3">
+                                    @Html.DisplayFor(modelItem => item.Content)</div>
+                                    
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.TopicID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.TopicID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.TopicID })
+</li>
+            }
+
+</ul>
+}
+else
+{
+    <text>You are not an Admin, You can't look Here!</text>
+}

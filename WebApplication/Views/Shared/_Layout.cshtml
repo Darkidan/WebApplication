@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <!--  JQUERY -->
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+    <!--  PAGINATION plugin -->
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.bs_pagination.min.css">
+    <script type="text/javascript" src="~/Scripts/jquery.bs_pagination.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/en.min.js"></script>
+</head>
+<body background="~/Content/background.jpeg">
+    <header>
+        <div class="navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <img src="~/Content/head.png" width="159" height="168">
+                    <a href='@Url.Action("Index", "Home")'>
+                        <img src="~/Content/llamada.png" width="332" height="86">
+                    </a>
+                </div>
+            </div>
+        </div><br />
+    </header>
+    <div class="mydiv">
+        <div class="container body-content">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @if ((string)Session["UserGroup"] == "Admin")
+                        {
+                            <a class="navbar-brand">Control</a>
+                        }
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            @if ((string)Session["UserGroup"] == "Admin")
+                            {
+                                <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
+                                <li>@Html.ActionLink("Forum", "Index", "Forum")</li>
+                                <li>@Html.ActionLink("Topics", "Index", "Topics") </li>
+                                    <li>@Html.ActionLink("Comments", "Index", "Comments")</li>
+                                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                            }
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            @if (@Session["UserName"] == null)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Register", "Users")">
+                                        <span class="glyphicon glyphicon-user"></span> Register
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Login", "Users")">
+                                        <span class="glyphicon glyphicon-log-in"></span> Login
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+
+                                <p class="navbar-text">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    Hello <b>@Session["UserName"]</b> | Your Group is: <b>@Session["UserGroup"]</b>
+                                </p>
+                                <li>
+                                    <a href="@Url.Action("Logout", "Users")">
+                                        <span class="glyphicon glyphicon-log-out"></span> Logout
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            @RenderBody()
+
+            <hr />
+            <footer>
+                <p style="color:white;">&copy; @DateTime.Now - Site by: Daniel Kalish & Idan Ben Zvi & Sapir Koren & Ben Ohayon</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

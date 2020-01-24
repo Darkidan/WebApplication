@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WebApplication.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+@if ((string)Session["UserGroup"] == "Admin")
+{
+<h2>Users Index</h2>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <div class="col-md-1">
+            <b>@Html.DisplayNameFor(model => model.Username)</b></div>
+                <div class="col-md-1">
+                    <b>@Html.DisplayNameFor(model => model.Age)</b></div>
+                    <div class="col-md-1">
+                        <b>@Html.DisplayNameFor(model => model.Gender)</b></div>
+                        <div class="col-md-2">
+                            <b>@Html.DisplayNameFor(model => model.Email)</b></div>
+                            <div class="col-md-1">
+                                <b>@Html.DisplayNameFor(model => model.Avatar)</b></div>
+                                <div class="col-md-1">
+                                    <b>@Html.DisplayNameFor(model => model.NumOfTopics)</b></div>
+                                    <div class="col-md-2">
+                                        <b>@Html.DisplayNameFor(model => model.NumOfComments)</b></div>
+        <b>@Html.DisplayNameFor(model => model.UserGroup)</b>
+
+</li>
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item">
+                <div class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.Username)</div>
+                    <div class="col-md-1">
+                        @Html.DisplayFor(modelItem => item.Age)</div>
+                        <div class="col-md-1">
+                            @Html.DisplayFor(modelItem => item.Gender)</div>
+                            <div class="col-md-2">
+                                @Html.DisplayFor(modelItem => item.Email)</div>
+                                <div class="col-md-1">
+                                    @Html.DisplayFor(modelItem => item.Avatar)</div>
+                                    <div class="col-md-1">
+                                        @Html.DisplayFor(modelItem => item.NumOfTopics)</div>
+                                        <div class="col-md-2">
+                                            @Html.DisplayFor(modelItem => item.NumOfComments)</div>
+                <div class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.UserGroup)</div>
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.UserID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+
+</li>
+        }
+
+</ul>
+}
+else
+{
+    <text>You are not an Admin, You can't look Here!</text>
+}

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebApplication.Models.Comment>
+
+@{
+    ViewBag.Title = "ViewTopic";
+}
+
+    <h2>@ViewBag.TopicTitle1</h2>
+
+    <h2>@Session["sessionString"]</h2>
+
+
+@using (Html.BeginForm("ViewTopic", "Comments", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-addon">
+                @Html.RadioButton("searchBy", "CommentContent")
+                </span>
+                <span class="input-group-addon">Comment Content</span>
+                @Html.TextBox("searchValue", null, new { @class = "form-control" })
+                &nbsp;
+                <button class="btn btn-secondary" type="submit" value="Search">Search</button>
+            </div>
+        </div>
+    </div>
+}
+<br />
+
+
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="well well-sm">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <h4>@Html.DisplayFor(modelItem => item.CommentUser.Username)</h4>
+                                    <img src="~/Content/images/@Html.DisplayFor(modelItem => item.CommentUser.Avatar)" style="width:64px;height:64px;" />                            
+                                    <br />
+                                    <small>
+                                        <b>Age:</b> @Html.DisplayFor(modelItem => item.CommentUser.Age)
+                                    </small>
+                                    <br />
+                                    <small>
+                                        <b>Email:</b> @Html.DisplayFor(modelItem => item.CommentUser.Email)
+                                    </small>
+                                    <br />
+                                    <small>
+                                        <b>Gender:</b> @Html.DisplayFor(modelItem => item.CommentUser.Gender)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.DisplayFor(modelItem => item.CommentContent)
+                </div>
+
+            </div>
+            <div align="right">
+            @if ((string)Session["UserGroup"] == "Admin")
+            {
+            @Html.ActionLink("Edit", "Edit", new { id = item.CommentID }) <text> | </text>
+            @Html.ActionLink("Delete", "Delete", new { id = item.CommentID })
+            }
+            </div>
+        </li>
+
+    }
+
+</ul>
+@if ((string)Session["UserGroup"] == "Admin" || (string)Session["UserGroup"] == "User")
+{
+    <div class="col-md-8">
+        @Html.ActionLink("Create Comment", "CreateComment", "Comments", new { id = @ViewBag.TopicID }, new { @class = "btn btn-primary" })
+    </div>
+}
+    <div class="col-md-4">
+        @Html.ActionLink("Back", null, null, null, new { @class = "btn btn-default" , href = Request.UrlReferrer })
+    </div>
+    <br />

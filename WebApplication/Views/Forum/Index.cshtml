@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebApplication.Models.Forum>
+
+@{
+    ViewBag.Title = "Forum Index";
+}
+@if ((string)Session["UserGroup"] == "Admin")
+{
+<h2>Forum Index</h2>
+<h2>@ViewData["sessionString"]</h2>
+<h2>@Session["sessionString"]</h2>
+
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <div class="col-md-2">
+            <b>@Html.DisplayNameFor(model => model.category.CatagoryName)</b></div>
+        <div class="col-md-1">
+            <b>@Html.DisplayNameFor(model => model.ForumName)</b></div>
+        <div class="col-md-2">
+            <b>@Html.DisplayNameFor(model => model.ForumDescription)</b>
+</div>
+        <div class="col-md-1">
+            <b>@Html.DisplayNameFor(model => model.NumOfTopics)</b>
+</div>
+        <div class="col-md-2">
+            <b>@Html.DisplayNameFor(model => model.Icon)</b>
+</div>
+        <b>@Html.DisplayNameFor(model => model.background)</b>
+</li>
+
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item">
+                <div class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.category.CatagoryName)</div>
+                <div class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.ForumName)
+                </div>
+                <div class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.ForumDescription)
+                </div>
+                <div class="col-md-1">
+                    @Html.DisplayFor(modelItem => item.NumOfTopics)
+                </div>
+                <div class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.Icon)
+                </div>
+                <div class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.background)
+                </div>
+
+
+
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ForumID }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ForumID })
+</li>
+        }
+
+    </ul>
+
+        <p>
+            @Html.ActionLink("Create New Forum", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+}
+else
+{
+    <text>You are not an Admin, You can't look Here!</text>
+}
